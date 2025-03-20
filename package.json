@@ -1,0 +1,63 @@
+{
+  "name": "sambanova-ai-provider",
+  "version": "1.0.0",
+  "description": "Vercel AI Provider for running LLMs locally using SambaNova models",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup -d --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint \"./**/*.ts*\"",
+    "prettier-check": "prettier --check \"./**/*.ts*\"",
+    "prettier-write": "prettier . --write \"./**/*.ts*\"",
+    "test": "pnpm test:node && pnpm test:edge",
+    "test:node": "echo 'Running Node.js tests' && vitest --config vitest.node.config.js run",
+    "test:edge": "echo 'Running Edge tests' && vitest --config vitest.edge.config.js run"
+  },
+  "dependencies": {
+    "@ai-sdk/provider": "1.0.1",
+    "@ai-sdk/provider-utils": "^2.0.0",
+    "dotenv": "16.4.5"
+  },
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-sort": "^4.0.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier": "3.5.3",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.8",
+    "zod": "3.23.8"
+  },
+  "keywords": [
+    "ai",
+    "sambanova",
+    "provider",
+    "vercel"
+  ],
+  "author": "David Pérez Zapata",
+  "license": "ISC",
+  "homepage": "https://github.com/sambanova/sambanova-ai-provider",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sambanova/sambanova-ai-provider.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sambanova/sambanova-ai-provider/issues"
+  },
+  "packageManager": "pnpm@10.2.0"
+}

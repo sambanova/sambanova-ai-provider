@@ -8,9 +8,12 @@ on:
     branches:
       - main
 
+env:
+  SAMBANOVA_API_KEY: ${{ secrets.SAMBANOVA_API_KEY }}
+
 jobs:
   node-tests:
-    name: 'Tests'
+    name: 'Node tests'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,11 +31,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
 
-      - name: Run Node.js tests
+      - name: Run Node tests
         run: pnpm test:node
 
   edge-tests:
-    name: 'Tests'
+    name: 'Edge tests'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
