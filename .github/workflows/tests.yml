@@ -17,16 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'pnpm'
+      - name: Common Node and pnpm setup
+        uses: ./.github/actions/common-setup
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
@@ -39,16 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'pnpm'
+      - name: Common Node and pnpm setup
+        uses: ./.github/actions/common-setup
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline

@@ -1,6 +1,6 @@
 {
   "name": "sambanova-ai-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vercel AI Provider for running LLMs locally using SambaNova models",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,9 +11,12 @@
     "lint": "eslint \"./**/*.ts*\"",
     "prettier-check": "prettier --check \"./**/*.ts*\"",
     "prettier-write": "prettier . --write \"./**/*.ts*\"",
+    "changeset": "changeset",
     "test": "pnpm test:node && pnpm test:edge",
     "test:node": "echo 'Running Node.js tests' && vitest --config vitest.node.config.js run",
-    "test:edge": "echo 'Running Edge tests' && vitest --config vitest.edge.config.js run"
+    "test:edge": "echo 'Running Edge tests' && vitest --config vitest.edge.config.js run",
+    "ci:release": "pnpm clean && pnpm build && changeset publish",
+    "ci:version": "changeset version && pnpm install --no-frozen-lockfile"
   },
   "dependencies": {
     "@ai-sdk/provider": "1.0.1",
@@ -21,6 +24,7 @@
     "dotenv": "16.4.5"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.28.1",
     "@edge-runtime/vm": "^5.0.0",
     "@eslint/compat": "^1.2.7",
     "@eslint/eslintrc": "^3.3.0",
