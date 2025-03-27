@@ -1,12 +1,13 @@
 {
   "name": "sambanova-ai-provider",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Vercel AI Provider for running LLMs locally using SambaNova models",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup",
     "dev": "tsup -d --watch",
+    "clean": "rm -rf dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint \"./**/*.ts*\"",
     "prettier-check": "prettier --check \"./**/*.ts*\"",
@@ -63,5 +64,8 @@
   "bugs": {
     "url": "https://github.com/sambanova/sambanova-ai-provider/issues"
   },
-  "packageManager": "pnpm@10.2.0"
+  "packageManager": "pnpm@10.2.0",
+  "publishConfig": {
+    "access": "public"
+  }
 }
