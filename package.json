@@ -1,9 +1,13 @@
 {
   "name": "sambanova-ai-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vercel AI Provider for running LLMs locally using SambaNova models",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup -d --watch",

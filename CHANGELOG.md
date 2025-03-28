@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.0.1
+
+### Patch Changes
+
+- Add distribution files explicitly to publishing
+
 ## 1.0.0
 
 ### Major changes
