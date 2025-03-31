@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.0.3
+
+### Patch Changes
+
+- Change publish workflow logic and added more keywords.
+
 ## 1.0.2
 
 ### Patch Changes
