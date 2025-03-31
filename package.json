@@ -1,6 +1,6 @@
 {
   "name": "sambanova-ai-provider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Vercel AI Provider for running LLMs locally using SambaNova models",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -20,8 +20,8 @@
     "test": "pnpm test:node && pnpm test:edge",
     "test:node": "echo 'Running Node.js tests' && vitest --config vitest.node.config.js run",
     "test:edge": "echo 'Running Edge tests' && vitest --config vitest.edge.config.js run",
-    "ci:release": "pnpm clean && pnpm build && changeset publish",
-    "ci:version": "changeset version && pnpm install --no-frozen-lockfile"
+    "ci:version": "changeset version && pnpm install --no-frozen-lockfile",
+    "ci:release": "pnpm clean && pnpm build && changeset publish"
   },
   "dependencies": {
     "@ai-sdk/provider": "1.0.1",
@@ -56,9 +56,12 @@
     "ai",
     "sambanova",
     "provider",
-    "vercel"
+    "vercel",
+    "vercel-ai-sdk",
+    "sambanova-cloud",
+    "ai-provider"
   ],
-  "author": "David Pérez Zapata",
+  "author": "SambaNova Systems",
   "license": "Apache-2.0",
   "homepage": "https://github.com/sambanova/sambanova-ai-provider",
   "repository": {
