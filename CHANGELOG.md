@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.0.4
+
+### Patch Changes
+
+- Fix model names
+
 ## 1.0.3
 
 ### Patch Changes
