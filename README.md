@@ -87,9 +87,9 @@ This provider is capable of generating and streaming text, and interpreting imag
 
 At least it has been tested with the following features (which use the `/chat/completion` endpoint):
 
-| Chat completion    | Image input        |
-| ------------------ | ------------------ |
-| :white_check_mark: | :white_check_mark: |
+| Chat completion    | Image input        | Tool calling       |
+| ------------------ | ------------------ | ------------------ |
+| :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Image input
 
@@ -100,7 +100,13 @@ You need to use any of the following models for visual understanding:
 
 SambaNova does not support URLs, but the ai-sdk is able to download the file and send it to the model.
 
+### Tool calling
+
+Tool calling enables adaptive workflows that leverage real-time data and structured outputs, creating more dynamic and responsive model interactions. You can use any of the [Function calling supported models](https://docs.sambanova.ai/cloud/docs/capabilities/function-calling#supported-models) for tool calling.
+
 ## Example Usage
+
+### Generate text
 
 Basic demonstration of text generation using the SambaNova provider.
 
@@ -127,6 +133,74 @@ You will get an output text similar to this one:
 ```
 Hello. Nice to meet you too. Is there something I can help you with or would you like to chat?
 ```
+
+### Tool calling
+
+```ts
+import { generateText, tool } from 'ai';
+import { sambanova } from 'sambanova-ai-provider';
+import dotenv from 'dotenv';
+import { z } from 'zod';
+
+dotenv.config();
+
+const model = sambanova('Meta-Llama-3.1-405B-Instruct');
+
+const result = await generateText({
+  model,
+  messages: [
+    {
+      role: 'system',
+      content: 'You are a helpful AI assistant.',
+    },
+    { role: 'user', content: 'What is the weather in San Francisco?' },
+  ],
+  tools: {
+    weather: tool({
+      description: 'Get the weather in a location',
+      parameters: z.object({
+        location: z.string().describe('The location to get the weather for'),
+      }),
+      execute: async ({ location }) => ({
+        location,
+        temperature: 72 + Math.floor(Math.random() * 21) - 10,
+      }),
+    }),
+  },
+  toolChoice: 'auto',
+});
+
+console.log('Tool calls:');
+console.log(result.toolCalls);
+console.log('Tool results:');
+console.log(result.toolResults);
+```
+
+And your output will be something like:
+
+```bash
+Tool calls:
+[
+  {
+    type: 'tool-call',
+    toolCallId: 'call_02c10aa37b224d46ac',
+    toolName: 'weather',
+    args: { location: 'San Francisco' }
+  }
+]
+Tool results:
+[
+  {
+    type: 'tool-result',
+    toolCallId: 'call_02c10aa37b224d46ac',
+    toolName: 'weather',
+    args: { location: 'San Francisco' },
+    result: { location: 'San Francisco', temperature: 82 }
+  }
+]
+```
+
+It's important to note that you can use both Zod schemas and raw JSON schemas. For more information see the [Schemas documentation](https://github.com/vercel/ai/blob/main/content/docs/02-foundations/04-tools.mdx#schemas) on Vercel AI's repository.
 
 ## Intercepting Fetch Requests
 
