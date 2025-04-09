@@ -1,5 +1,12 @@
 # sambanova-ai-provider
 
+## 1.1.1
+
+### Patch Changes
+
+- Improve image input feature
+- Add Llama 4 models
+
 ## 1.1.0
 
 ### Minor Changes
