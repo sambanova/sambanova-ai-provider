@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.1.0
+
+### Minor Changes
+
+- Add embedding support
+
 ## 1.0.4
 
 ### Patch Changes
