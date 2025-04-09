@@ -1,6 +1,6 @@
 import {
+  EmbeddingModelV1,
   LanguageModelV1,
-  NoSuchModelError,
   ProviderV1,
 } from '@ai-sdk/provider';
 import {
@@ -13,51 +13,77 @@ import {
   SambaNovaChatModelId,
   SambaNovaChatSettings,
 } from './sambanova-chat-settings';
+import {
+  SambaNovaEmbeddingModelId,
+  SambaNovaEmbeddingSettings,
+} from './sambanova-embedding-settings';
+import { SambaNovaEmbeddingModel } from './sambanova-embedding-model';
 
 export interface SambaNovaProvider extends ProviderV1 {
-  /**
-Creates a model for text generation.
-*/
   (
     modelId: SambaNovaChatModelId,
     settings?: SambaNovaChatSettings,
   ): LanguageModelV1;
 
   /**
-Creates a SambaNova chat model for text generation.
-   */
+   Create a chat model for text generation.
+   * @param modelId The model ID.
+   * @param settings The settings for the model.
+   * @returns The chat model.
+  */
+  chatModel(
+    modelId: SambaNovaChatModelId,
+    settings?: SambaNovaChatSettings,
+  ): LanguageModelV1;
+
+  /**
+   Create a language model for text generation.
+   * @param modelId The model ID.
+   * @param settings The settings for the model.
+   * @returns The language model.
+  */
   languageModel(
     modelId: SambaNovaChatModelId,
     settings?: SambaNovaChatSettings,
   ): LanguageModelV1;
+
+  /**
+   Create a text embedding model.
+    * @param modelId The model ID.
+    * @returns The text embedding model.
+  */
+  textEmbeddingModel(
+    modelId: SambaNovaEmbeddingModelId,
+    settings?: SambaNovaEmbeddingSettings,
+  ): EmbeddingModelV1<string>;
 }
 
 export interface SambaNovaProviderSettings {
   /**
-Base URL for the SambaNova API calls.
-     */
+   Base URL for the SambaNova API calls.
+  */
   baseURL?: string;
 
   /**
-API key for authenticating requests.
-     */
+   API key for authenticating requests.
+  */
   apiKey?: string;
 
   /**
-Custom headers to include in the requests.
-     */
+   Custom headers to include in the requests.
+  */
   headers?: Record<string, string>;
 
   /**
-Custom fetch implementation. You can use it as a middleware to intercept requests,
-or to provide a custom fetch implementation for e.g. testing.
-    */
+   Custom fetch implementation. You can use it as a middleware to intercept requests,
+   or to provide a custom fetch implementation for e.g. testing.
+  */
   fetch?: FetchFunction;
 }
 
 /**
-Create an SambaNova provider instance.
- */
+ Create an SambaNova provider instance.
+*/
 export function createSambaNova(
   options: SambaNovaProviderSettings = {},
 ): SambaNovaProvider {
@@ -78,7 +104,7 @@ export function createSambaNova(
     settings: SambaNovaChatSettings = {},
   ) =>
     new SambaNovaChatLanguageModel(modelId, settings, {
-      provider: 'sambanova.chat', // TODO: Check this provider
+      provider: 'sambanova.chat',
       url: ({ path }) => `${baseURL}${path}`,
       headers: getHeaders,
       fetch: options.fetch,
@@ -97,23 +123,33 @@ export function createSambaNova(
     return createChatModel(modelId, settings);
   };
 
+  const createEmbeddingModel = (
+    modelId: SambaNovaEmbeddingModelId,
+    settings: SambaNovaEmbeddingSettings = {},
+  ) =>
+    new SambaNovaEmbeddingModel(modelId, settings, {
+      provider: 'sambanova.embedding',
+      url: ({ path }) => `${baseURL}${path}`,
+      headers: getHeaders,
+      fetch: options.fetch,
+    });
+
+  // Default provider returns a chat model.
   const provider = function (
     modelId: SambaNovaChatModelId,
     settings?: SambaNovaChatSettings,
   ) {
-    return createLanguageModel(modelId, settings);
+    return createChatModel(modelId, settings);
   };
 
   provider.languageModel = createLanguageModel;
-  provider.chat = createChatModel;
-  provider.textEmbeddingModel = (modelId: string) => {
-    throw new NoSuchModelError({ modelId, modelType: 'textEmbeddingModel' });
-  };
+  provider.chatModel = createChatModel;
+  provider.textEmbeddingModel = createEmbeddingModel;
 
   return provider;
 }
 
 /**
-Default SambaNova provider instance.
- */
+ Default SambaNova provider instance.
+*/
 export const sambanova = createSambaNova();

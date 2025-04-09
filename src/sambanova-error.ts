@@ -1,9 +1,5 @@
 import { z } from 'zod';
-import {
-  createJsonErrorResponseHandler,
-  ResponseHandler,
-} from '@ai-sdk/provider-utils';
-import { APICallError } from '@ai-sdk/provider';
+import { createJsonErrorResponseHandler } from '@ai-sdk/provider-utils';
 
 export const sambanovaErrorDataSchema = z.object({
   error: z.object({
@@ -14,8 +10,7 @@ export const sambanovaErrorDataSchema = z.object({
 
 export type SambaNovaErrorData = z.infer<typeof sambanovaErrorDataSchema>;
 
-export const sambanovaFailedResponseHandler: ResponseHandler<APICallError> =
-  createJsonErrorResponseHandler({
-    errorSchema: sambanovaErrorDataSchema,
-    errorToMessage: (data) => data.error.message,
-  });
+export const sambanovaFailedResponseHandler = createJsonErrorResponseHandler({
+  errorSchema: sambanovaErrorDataSchema,
+  errorToMessage: (data) => data.error.message,
+});
