@@ -23,23 +23,29 @@ export function convertToSambaNovaChatMessages(
           break;
         }
 
+        // For multiple content parts, process each part.
         messages.push({
           role: 'user',
           content: content.map((part) => {
             switch (part.type) {
               case 'text': {
+                // Plain text conversion.
                 return { type: 'text', text: part.text };
               }
               case 'image': {
+                // Convert images and encode if necessary.
+                if (part.image instanceof URL) {
+                  throw new UnsupportedFunctionalityError({
+                    functionality: 'Image URLs in user messages',
+                  });
+                }
+
                 return {
                   type: 'image_url',
                   image_url: {
-                    url:
-                      part.image instanceof URL
-                        ? part.image.toString()
-                        : `data:${
-                            part.mimeType ?? 'image/jpeg'
-                          };base64,${convertUint8ArrayToBase64(part.image)}`,
+                    url: `data:${
+                      part.mimeType ?? 'image/jpeg'
+                    };base64,${convertUint8ArrayToBase64(part.image)}`,
                   },
                 };
               }

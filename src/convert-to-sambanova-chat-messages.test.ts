@@ -1,3 +1,4 @@
+import { UnsupportedFunctionalityError } from '@ai-sdk/provider';
 import { convertToSambaNovaChatMessages } from './convert-to-sambanova-chat-messages';
 
 describe('user messages', () => {
@@ -39,6 +40,21 @@ describe('user messages', () => {
     ]);
 
     expect(result).toEqual([{ role: 'user', content: 'Hello' }]);
+  });
+
+  it('should throw UnsupportedFunctionalityError for image URL', () => {
+    const act = () =>
+      convertToSambaNovaChatMessages([
+        {
+          content: [
+            { image: new URL('https://example.com/image.png'), type: 'image' },
+          ],
+          role: 'user',
+        },
+      ]);
+
+    // Assert
+    expect(act).throws(UnsupportedFunctionalityError);
   });
 });
 
