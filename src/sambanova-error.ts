@@ -14,7 +14,7 @@ export const sambanovaErrorDataSchema = z.object({
 
 export type SambaNovaErrorData = z.infer<typeof sambanovaErrorDataSchema>;
 
-export const sambanovaFailedResponseHandler: ResponseHandler<APICallError> =
+export const sambaNovaFailedResponseHandler: ResponseHandler<APICallError> =
   createJsonErrorResponseHandler({
     errorSchema: sambanovaErrorDataSchema,
     errorToMessage: (data) => data.error.message,

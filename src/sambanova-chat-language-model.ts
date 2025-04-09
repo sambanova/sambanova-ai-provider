@@ -25,7 +25,7 @@ import {
 } from './sambanova-chat-settings';
 import {
   sambanovaErrorDataSchema,
-  sambanovaFailedResponseHandler,
+  sambaNovaFailedResponseHandler,
 } from './sambanova-error';
 import { prepareTools } from './sambanova-prepare-tools';
 import { mapSambaNovaFinishReason } from './map-sambanova-finish-reason';
@@ -219,7 +219,7 @@ export class SambaNovaChatLanguageModel implements LanguageModelV1 {
       }),
       headers: combineHeaders(this.config.headers(), options.headers),
       body: args,
-      failedResponseHandler: sambanovaFailedResponseHandler,
+      failedResponseHandler: sambaNovaFailedResponseHandler,
       successfulResponseHandler: createJsonResponseHandler(
         sambanovaChatResponseSchema,
       ),
@@ -272,7 +272,7 @@ export class SambaNovaChatLanguageModel implements LanguageModelV1 {
         ...args,
         stream: true,
       },
-      failedResponseHandler: sambanovaFailedResponseHandler,
+      failedResponseHandler: sambaNovaFailedResponseHandler,
       successfulResponseHandler: createEventSourceResponseHandler(
         sambanovaChatChunkSchema,
       ),

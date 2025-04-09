@@ -1,6 +1,6 @@
 {
   "name": "sambanova-ai-provider",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Vercel AI Provider for running LLMs locally using SambaNova models",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -24,8 +24,8 @@
     "ci:release": "pnpm clean && pnpm build && changeset publish"
   },
   "dependencies": {
-    "@ai-sdk/provider": "1.0.1",
-    "@ai-sdk/provider-utils": "^2.0.0",
+    "@ai-sdk/provider": "1.0.7",
+    "@ai-sdk/provider-utils": "^2.1.6",
     "dotenv": "16.4.5"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "vite": "^6.2.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.8",
-    "zod": "3.23.8"
+    "zod": "^3.24.1"
   },
   "keywords": [
     "ai",
