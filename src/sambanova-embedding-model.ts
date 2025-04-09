@@ -5,6 +5,7 @@ import {
 import {
   createJsonResponseHandler,
   postJsonToApi,
+  combineHeaders,
 } from '@ai-sdk/provider-utils';
 import { z } from 'zod';
 
@@ -12,7 +13,7 @@ import {
   SambaNovaEmbeddingModelId,
   SambaNovaEmbeddingSettings,
 } from '@/sambanova-embedding-settings';
-import { sambanovaFailedResponseHandler } from './sambanova-error';
+import { sambaNovaFailedResponseHandler } from './sambanova-error';
 
 type SambaNovaEmbeddingConfig = {
   url: (options: { modelId: string; path: string }) => string;
@@ -20,6 +21,12 @@ type SambaNovaEmbeddingConfig = {
   headers: () => Record<string, string | undefined>;
   provider: string;
 };
+
+const sambaNovaTextEmbeddingResponseSchema = z.object({
+  data: z.array(z.object({ embedding: z.array(z.number()) })),
+  usage: z.object({ prompt_tokens: z.number() }).nullish(),
+});
+
 export class SambaNovaEmbeddingModel implements EmbeddingModelV1<string> {
   readonly specificationVersion = 'v1';
   readonly modelId: SambaNovaEmbeddingModelId;
@@ -52,6 +59,7 @@ export class SambaNovaEmbeddingModel implements EmbeddingModelV1<string> {
   async doEmbed({
     abortSignal,
     values,
+    headers,
   }: Parameters<EmbeddingModelV1<string>['doEmbed']>[0]): Promise<
     Awaited<ReturnType<EmbeddingModelV1<string>['doEmbed']>>
   > {
@@ -69,32 +77,28 @@ export class SambaNovaEmbeddingModel implements EmbeddingModelV1<string> {
         path: '/embeddings',
         modelId: this.modelId,
       }),
-      headers: this.config.headers(),
+      headers: combineHeaders(this.config.headers(), headers),
       body: {
         input: values,
         model: this.modelId,
       },
       // Handle response errors using the provided error structure.
-      failedResponseHandler: sambanovaFailedResponseHandler,
-      abortSignal,
-      fetch: this.config.fetch,
+      failedResponseHandler: sambaNovaFailedResponseHandler,
       // Process successful responses based on a minimal schema.
       successfulResponseHandler: createJsonResponseHandler(
         sambaNovaTextEmbeddingResponseSchema,
       ),
+      abortSignal,
+      fetch: this.config.fetch,
     });
 
+    // Map response data to output format.
     return {
-      embeddings: response.embeddings,
-      rawResponse: { headers: responseHeaders },
-      usage: response.prompt_eval_count
-        ? { tokens: response.prompt_eval_count }
+      embeddings: response.data.map((item) => item.embedding),
+      usage: response.usage
+        ? { tokens: response.usage.prompt_tokens }
         : undefined,
+      rawResponse: { headers: responseHeaders },
     };
   }
 }
-
-const sambaNovaTextEmbeddingResponseSchema = z.object({
-  embeddings: z.array(z.array(z.number())),
-  prompt_eval_count: z.number().nullable(),
-});

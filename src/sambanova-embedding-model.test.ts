@@ -19,15 +19,20 @@ describe('doEmbed', () => {
 
   function prepareJsonResponse({
     embeddings = dummyEmbeddings,
-    prompt_eval_count = 8,
+    usage = { prompt_tokens: 8, total_tokens: 8 },
   }: {
     embeddings?: EmbeddingModelV1Embedding[];
-    prompt_eval_count?: number;
+    usage?: { prompt_tokens: number; total_tokens: number };
   } = {}) {
     server.responseBodyJson = {
-      embeddings,
-      model: 'all-minilm',
-      prompt_eval_count,
+      object: 'list',
+      data: embeddings.map((embedding, i) => ({
+        object: 'embedding',
+        index: i,
+        embedding,
+      })),
+      model: 'E5-Mistral-7B-Instruct',
+      usage,
     };
   }
 
@@ -49,7 +54,7 @@ describe('doEmbed', () => {
     const { rawResponse } = await model.doEmbed({ values: testValues });
 
     expect(rawResponse?.headers).toStrictEqual({
-      'content-length': '101',
+      'content-length': '236',
       // default headers:
       'content-type': 'application/json',
 

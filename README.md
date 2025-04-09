@@ -12,6 +12,7 @@ Vercel AI Provider for running LLMs locally using SambaNova's models.
   - [Tested models and capabilities](#tested-models-and-capabilities)
   - [Image input](#image-input)
   - [Tool calling](#tool-calling)
+  - [Embeddings](#embeddings)
 - [Examples](#examples)
 - [Intercepting Fetch requests](#intercepting-fetch-requests)
 
@@ -121,105 +122,11 @@ You can use any of the [Function calling supported models](https://docs.sambanov
 
 You can use the `E5-Mistral-7B-Instruct` model to use the embeddings feature of the SambaNova provider.
 
-## Example Usage
+## Examples
 
-### Generate text
+On the `examples` folder you will find some Markdown files containing simple code snippets of some of the features of the SambaNova Provider.
 
-Basic demonstration of text generation using the SambaNova provider.
-
-```js
-import { createSambaNova } from 'sambanova-ai-provider';
-import { generateText } from 'ai';
-
-const sambanova = createSambaNova({
-  apiKey: 'YOUR_API_KEY',
-});
-
-const model = sambanova('Meta-Llama-3.1-70B-Instruct');
-
-const { text } = await generateText({
-  model,
-  prompt: 'Hello, nice to meet you.',
-});
-
-console.log(text);
-```
-
-You will get an output text similar to this one:
-
-```
-Hello. Nice to meet you too. Is there something I can help you with or would you like to chat?
-```
-
-### Tool calling
-
-```ts
-import { generateText, tool } from 'ai';
-import { sambanova } from 'sambanova-ai-provider';
-import dotenv from 'dotenv';
-import { z } from 'zod';
-
-dotenv.config();
-
-const model = sambanova('Meta-Llama-3.1-405B-Instruct');
-
-const result = await generateText({
-  model,
-  messages: [
-    {
-      role: 'system',
-      content: 'You are a helpful AI assistant.',
-    },
-    { role: 'user', content: 'What is the weather in San Francisco?' },
-  ],
-  tools: {
-    weather: tool({
-      description: 'Get the weather in a location',
-      parameters: z.object({
-        location: z.string().describe('The location to get the weather for'),
-      }),
-      execute: async ({ location }) => ({
-        location,
-        temperature: 72 + Math.floor(Math.random() * 21) - 10,
-      }),
-    }),
-  },
-  toolChoice: 'auto',
-});
-
-console.log('Tool calls:');
-console.log(result.toolCalls);
-console.log('Tool results:');
-console.log(result.toolResults);
-```
-
-And your output will be something like:
-
-```bash
-Tool calls:
-[
-  {
-    type: 'tool-call',
-    toolCallId: 'call_02c10aa37b224d46ac',
-    toolName: 'weather',
-    args: { location: 'San Francisco' }
-  }
-]
-Tool results:
-[
-  {
-    type: 'tool-result',
-    toolCallId: 'call_02c10aa37b224d46ac',
-    toolName: 'weather',
-    args: { location: 'San Francisco' },
-    result: { location: 'San Francisco', temperature: 82 }
-  }
-]
-```
-
-It's important to note that you can use both Zod schemas and raw JSON schemas. For more information see the [Schemas documentation](https://github.com/vercel/ai/blob/main/content/docs/02-foundations/04-tools.mdx#schemas) on Vercel AI's repository.
-
-## Intercepting Fetch Requests
+## Intercepting Fetch requests
 
 This provider supports [Intercepting Fetch Requests](https://sdk.vercel.ai/examples/providers/intercepting-fetch-requests).
 
