@@ -2,6 +2,10 @@
 
 For more information, visit [SambaNova Cloud documentation](https://docs.sambanova.ai/cloud/docs/capabilities/vision) on vision models and the respective [API reference](https://docs.sambanova.ai/cloud/api-reference/endpoints/vision-endpoint) page.
 
+## Single image
+
+Sending one image per request.
+
 ```ts
 import { sambanova } from 'sambanova-ai-provider';
 import { generateText } from 'ai';
@@ -41,4 +45,43 @@ The image depicts a solar eclipse, with the moon positioned in front of the sun.
 **Review:**
 
 The image provides a clear and detailed view of a solar eclipse, showcasing the sun's corona and solar flares/prominences. The use of a black background effectively highlights the features of the eclipse, making it easier to observe and study. Overall, the image is a valuable resource for astronomers and space enthusiasts interested in understanding the dynamics of our solar system.
+```
+
+## Multiple images
+
+Sending up to five (5) images per request.
+
+```ts
+import { generateObject, generateText } from 'ai';
+import { sambanova } from 'sambanova-ai-provider';
+import dotenv from 'dotenv';
+import { z } from 'zod';
+import fs from 'node:fs';
+
+dotenv.config();
+
+const model = sambanova('Llama-4-Maverick-17B-128E-Instruct');
+
+const response = await generateText({
+  model,
+  messages: [
+    {
+      role: 'user',
+      content: [
+        { type: 'text', text: 'Describe these three images' },
+        { image: fs.readFileSync('./example-image-1.jpg'), type: 'image' },
+        { image: fs.readFileSync('./example-image-2.jpg'), type: 'image' },
+        { image: fs.readFileSync('./example-image-3.jpg'), type: 'image' },
+      ],
+    },
+  ],
+});
+
+console.log(response.text);
+```
+
+You will get an output like this one:
+
+```
+// TODO
 ```
