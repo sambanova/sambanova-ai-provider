@@ -10,7 +10,7 @@ const sambanova = createSambaNova({
   apiKey: 'YOUR_API_KEY',
 });
 
-const model = sambanova('Meta-Llama-3.1-70B-Instruct');
+const model = sambanova('Meta-Llama-3.3-70B-Instruct');
 
 const { text } = await generateText({
   model,
