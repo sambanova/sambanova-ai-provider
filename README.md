@@ -89,10 +89,10 @@ You can use the following optional settings to customize the SambaNova provider 
 ## Models
 
 You can use [SambaNova models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models) on the provider instance.
-The first argument is the model ID, e.g. `Meta-Llama-3.1-70B-Instruct`.
+The first argument is the model ID, e.g. `Meta-Llama-3.3-70B-Instruct`.
 
 ```ts
-const model = sambanova('Meta-Llama-3.1-70B-Instruct');
+const model = sambanova('Meta-Llama-3.3-70B-Instruct');
 ```
 
 ### Tested models and capabilities
@@ -147,7 +147,7 @@ const sambanovaProvider = createSambaNova({
   },
 });
 
-const model = sambanovaProvider('Meta-Llama-3.1-70B-Instruct');
+const model = sambanovaProvider('Meta-Llama-3.3-70B-Instruct');
 
 await generateText({
   model,
@@ -164,7 +164,7 @@ Headers {
   "Authorization": "Bearer YOUR_API_KEY"
 }
 Body {
-  "model": "Meta-Llama-3.1-70B-Instruct",
+  "model": "Meta-Llama-3.3-70B-Instruct",
   "temperature": 0,
   "messages": [
     {

@@ -11,7 +11,7 @@ import fs from 'node:fs';
 
 dotenv.config();
 
-const model = sambanova('Llama-3.2-90B-Vision-Instruct');
+const model = sambanova(''); // TODO
 
 const response = await generateText({
   model,
