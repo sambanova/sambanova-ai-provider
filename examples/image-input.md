@@ -17,7 +17,7 @@ const { text } = await generateText({
       role: 'user',
       content: [
         { type: 'text', text: 'Describe the image in detail and review it' },
-        { image: fs.readFileSync('./solar.jpg'), type: 'image' },
+        { image: fs.readFileSync('./example-image.jpg'), type: 'image' },
       ],
     },
   ],
