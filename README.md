@@ -24,18 +24,21 @@ API key can be obtained from the [SambaNova Cloud Platform](https://cloud.samban
 
 The SambaNova provider is available in the `sambanova-ai-provider` module. You can install it with
 
+npm:
+
 ```bash
-# With npm
 npm install sambanova-ai-provider
 ```
 
+yarn:
+
 ```bash
-# With yarn
 yarn add sambanova-ai-provider
 ```
 
+or pnpm:
+
 ```bash
-# With pnpm
 pnpm add sambanova-ai-provider
 ```
 
@@ -129,48 +132,3 @@ On the `examples` folder you will find some Markdown files containing simple cod
 ## Intercepting Fetch requests
 
 This provider supports [Intercepting Fetch Requests](https://sdk.vercel.ai/examples/providers/intercepting-fetch-requests).
-
-### Example
-
-```js
-import { createSambaNova } from 'sambanova-ai-provider';
-import { generateText } from 'ai';
-
-const sambanovaProvider = createSambaNova({
-  apiKey: 'YOUR_API_KEY',
-  fetch: async (url, options) => {
-    console.log(`URL ${url}`);
-    console.log(`Headers ${JSON.stringify(options.headers, null, 2)}`);
-    console.log(`Body ${JSON.stringify(JSON.parse(options.body), null, 2)}`);
-
-    return await fetch(url, options);
-  },
-});
-
-const model = sambanovaProvider('Meta-Llama-3.1-70B-Instruct');
-
-await generateText({
-  model,
-  prompt: 'Hello, nice to meet you.',
-});
-```
-
-And you will get an output like this:
-
-```bash
-URL https://api.sambanova.ai/v1/chat/completions
-Headers {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer YOUR_API_KEY"
-}
-Body {
-  "model": "Meta-Llama-3.1-70B-Instruct",
-  "temperature": 0,
-  "messages": [
-    {
-      "role": "user",
-      "content": "Hello, nice to meet you."
-    }
-  ]
-}
-```

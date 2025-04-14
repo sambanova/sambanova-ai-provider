@@ -3,17 +3,12 @@
 Basic demonstration of text generation using the SambaNova provider.
 
 ```ts
-import { createSambaNova } from 'sambanova-ai-provider';
+import { sambanova } from 'sambanova-ai-provider';
 import { generateText } from 'ai';
-
-const sambanova = createSambaNova({
-  apiKey: 'YOUR_API_KEY',
-});
-
-const model = sambanova('Meta-Llama-3.1-70B-Instruct');
+import dotenv from 'dotenv';
 
 const { text } = await generateText({
-  model,
+  model: sambanova('Meta-Llama-3.1-70B-Instruct'),
   prompt: 'Hello, nice to meet you.',
 });
 
@@ -29,16 +24,14 @@ Hello. Nice to meet you too. Is there something I can help you with or would you
 ## Chat completion
 
 ```ts
-import { generateText } from 'ai';
 import { sambanova } from 'sambanova-ai-provider';
+import { generateText } from 'ai';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const model = sambanova('Meta-Llama-3.3-70B-Instruct');
-
 const { text } = await generateText({
-  model,
+  model: sambanova('Meta-Llama-3.3-70B-Instruct'),
   messages: [
     {
       role: 'system',

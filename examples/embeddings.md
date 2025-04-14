@@ -3,8 +3,8 @@
 SambaNova supports generation of vector representations. For more information see the [Embeddings documentation](https://docs.sambanova.ai/cloud/docs/capabilities/embeddings) and its [API reference](https://docs.sambanova.ai/cloud/api-reference/endpoints/embeddings-api). Here is an example of how to leverage these capabilities with the provider.
 
 ```ts
-import { embed } from 'ai';
 import { sambanova } from 'sambanova-ai-provider';
+import { embed } from 'ai';
 import dotenv from 'dotenv';
 
 dotenv.config();
