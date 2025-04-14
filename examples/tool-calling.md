@@ -3,17 +3,15 @@
 For more information, visit [SambaNova Cloud documentation](https://docs.sambanova.ai/cloud/docs/capabilities/function-calling) on function calling models.
 
 ```ts
-import { generateText, tool } from 'ai';
 import { sambanova } from 'sambanova-ai-provider';
+import { generateText, tool } from 'ai';
 import dotenv from 'dotenv';
 import { z } from 'zod';
 
 dotenv.config();
 
-const model = sambanova('Meta-Llama-3.1-405B-Instruct');
-
-const result = await generateText({
-  model,
+const { toolCalls, toolResults } = await generateText({
+  model: sambanova('Meta-Llama-3.1-405B-Instruct'),
   messages: [
     {
       role: 'system',
@@ -37,14 +35,14 @@ const result = await generateText({
 });
 
 console.log('Tool calls:');
-console.log(result.toolCalls);
+console.log(toolCalls);
 console.log('Tool results:');
-console.log(result.toolResults);
+console.log(toolResults);
 ```
 
 And your output will be something like:
 
-```bash
+```
 Tool calls:
 [
   {

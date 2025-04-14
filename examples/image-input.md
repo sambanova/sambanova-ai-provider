@@ -3,18 +3,15 @@
 For more information, visit [SambaNova Cloud documentation](https://docs.sambanova.ai/cloud/docs/capabilities/vision) on vision models and the respective [API reference](https://docs.sambanova.ai/cloud/api-reference/endpoints/vision-endpoint) page.
 
 ```ts
-import { generateObject, generateText } from 'ai';
 import { sambanova } from 'sambanova-ai-provider';
+import { generateText } from 'ai';
 import dotenv from 'dotenv';
-import { z } from 'zod';
 import fs from 'node:fs';
 
 dotenv.config();
 
-const model = sambanova('Llama-3.2-90B-Vision-Instruct');
-
-const response = await generateText({
-  model,
+const { text } = await generateText({
+  model: sambanova('Llama-3.2-90B-Vision-Instruct'),
   messages: [
     {
       role: 'user',
@@ -26,12 +23,12 @@ const response = await generateText({
   ],
 });
 
-console.log(response.text);
+console.log(text);
 ```
 
 You will get an output like this one:
 
-```bash
+```
 The image depicts a solar eclipse, with the moon positioned in front of the sun. The sun's corona is visible as a bright ring around the moon, while the moon itself appears as a dark disk. The image also shows several pinkish-red solar flares or prominences extending from the sun's surface.
 
 **Key Features:**
