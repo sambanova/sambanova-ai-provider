@@ -1,5 +1,12 @@
 # sambanova-ai-provider
 
+## 1.1.2
+
+### Patch Changes
+
+- This is a test change
+- This is another test change
+
 ## 1.1.1
 
 ### Patch Changes
