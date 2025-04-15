@@ -8,7 +8,7 @@ import { generateText } from 'ai';
 import dotenv from 'dotenv';
 
 const { text } = await generateText({
-  model: sambanova('Meta-Llama-3.1-70B-Instruct'),
+  model: sambanova('Meta-Llama-3.3-70B-Instruct'),
   prompt: 'Hello, nice to meet you.',
 });
 

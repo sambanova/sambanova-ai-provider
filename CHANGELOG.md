@@ -1,5 +1,12 @@
 # sambanova-ai-provider
 
+## 1.1.2
+
+### Patch Changes
+
+- Remove deprecated models
+- Update vite version
+
 ## 1.1.1
 
 ### Patch Changes

@@ -3,23 +3,17 @@
 export type SambaNovaChatModelId =
   | 'DeepSeek-R1'
   | 'DeepSeek-R1-Distill-Llama-70B'
-  | 'Llama-3.1-Tulu-3-405B'
+  | 'DeepSeek-V3-0324'
   | 'Llama-4-Maverick-17B-128E-Instruct'
   | 'Llama-4-Scout-17B-16E-Instruct'
   | 'Meta-Llama-3.3-70B-Instruct'
   | 'Meta-Llama-3.2-3B-Instruct'
   | 'Meta-Llama-3.2-1B-Instruct'
   | 'Meta-Llama-3.1-405B-Instruct'
-  | 'Meta-Llama-3.1-70B-Instruct'
   | 'Meta-Llama-3.1-8B-Instruct'
   | 'Meta-Llama-3.2-90B-Vision-Instruct'
   | 'Meta-Llama-3.2-11B-Vision-Instruct'
-  | 'Qwen2.5-Coder-32B-Instruct'
-  | 'Qwen2.5-72B-Instruct'
   | 'QwQ-32B'
-  | 'Qwen2-Audio-7B-Instruct'
-  | 'Llama-3.1-Swallow-8B-Instruct-v0.3'
-  | 'Llama-3.1-Swallow-70B-Instruct-v0.3'
   | (string & {});
 
 export interface SambaNovaChatSettings {
