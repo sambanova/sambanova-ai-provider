@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.1.3
+
+### Patch Changes
+
+- Adding Llama 4 models for multimodal
+
 ## 1.1.2
 
 ### Patch Changes
