@@ -11,8 +11,6 @@ export type SambaNovaChatModelId =
   | 'Meta-Llama-3.2-1B-Instruct'
   | 'Meta-Llama-3.1-405B-Instruct'
   | 'Meta-Llama-3.1-8B-Instruct'
-  | 'Meta-Llama-3.2-90B-Vision-Instruct'
-  | 'Meta-Llama-3.2-11B-Vision-Instruct'
   | 'QwQ-32B'
   | (string & {});
 

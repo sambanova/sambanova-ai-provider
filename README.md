@@ -112,14 +112,10 @@ At least it has been tested with the following features:
 
 You need to use any of the following models for visual understanding:
 
-- Llama3.2-11B-Vision-Instruct
-- Llama3.2-90B-Vision-Instruct
 - Llama-4-Maverick-17B-128E-Instruct
 - Llama-4-Scout-17B-16E-Instruct
 
-SambaNova vision models don't support URLs.
-
-Llama 3.2 models support single image requests, while Llama 4 models support up to five (5) images per request.
+SambaNova vision models support up to five (5) images per request. They don't support URLs.
 
 ### Tool calling
 
