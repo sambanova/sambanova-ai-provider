@@ -1040,6 +1040,9 @@ describe('doStream', () => {
       stream: true,
       model: modelName,
       messages: [{ role: 'user', content: 'Hello' }],
+      stream_options: {
+        include_usage: true,
+      },
     });
   });
 
