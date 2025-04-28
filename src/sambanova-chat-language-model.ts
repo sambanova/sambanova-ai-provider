@@ -271,6 +271,7 @@ export class SambaNovaChatLanguageModel implements LanguageModelV1 {
       body: {
         ...args,
         stream: true,
+        stream_options: { include_usage: true },
       },
       failedResponseHandler: sambaNovaFailedResponseHandler,
       successfulResponseHandler: createEventSourceResponseHandler(
