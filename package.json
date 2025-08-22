@@ -24,8 +24,9 @@
     "ci:release": "pnpm clean && pnpm build && changeset publish"
   },
   "dependencies": {
-    "@ai-sdk/provider": "1.0.7",
-    "@ai-sdk/provider-utils": "^2.1.6",
+    "@ai-sdk/openai-compatible": "1.0.11",
+    "@ai-sdk/provider": "2.0.0",
+    "@ai-sdk/provider-utils": "3.0.5",
     "dotenv": "16.4.5"
   },
   "devDependencies": {
