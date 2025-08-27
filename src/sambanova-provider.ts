@@ -14,7 +14,6 @@ import {
   loadApiKey,
   withoutTrailingSlash,
 } from '@ai-sdk/provider-utils';
-import { SambaNovaChatLanguageModel } from './sambanova-chat-language-model';
 import { 
   SambaNovaCompletionModelId 
 } from './sambanova-completion-options';
@@ -24,7 +23,16 @@ import {
 import {
   SambaNovaEmbeddingModelId
 } from './sambanova-embedding-options';
-import { SambaNovaEmbeddingModel } from './sambanova-embedding-model';
+
+const loggingFetch: typeof fetch = async (url, options) => {
+  console.log('🚀 Request URL:', url);
+  console.log('🚀 Request Headers:', options?.headers);
+  if (options?.body) {
+    console.log('🚀 Request Body:', options.body.toString());
+  }
+  const res = await fetch(url, options);
+  return res;
+};
 
 export interface SambaNovaProviderSettings {
   /**
@@ -86,7 +94,8 @@ export function createSambaNova(
 ): SambaNovaProvider {
   const baseURL = withoutTrailingSlash(
     options.baseURL ?? 'https://api.sambanova.ai/v1',
-  );
+  )
+  fetch: loggingFetch;
 
   const getHeaders = () => ({
     Authorization: `Bearer ${loadApiKey({
