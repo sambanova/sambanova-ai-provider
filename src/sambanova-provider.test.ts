@@ -24,7 +24,6 @@ vi.mock('@ai-sdk/provider-utils', () => ({
 }));
 
 describe('SambanovaProvider', () => {
-
   beforeEach(() => {
     // Reset mocks
     vi.clearAllMocks();
