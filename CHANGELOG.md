@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated integration with newer aisdk version
+
 ## 1.1.3
 
 ### Patch Changes
