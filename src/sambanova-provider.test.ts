@@ -3,7 +3,7 @@ import {
   OpenAICompatibleCompletionLanguageModel,
   OpenAICompatibleEmbeddingModel,
 } from '@ai-sdk/openai-compatible';
-import { LanguageModelV2, EmbeddingModelV2 } from '@ai-sdk/provider';
+// import { LanguageModelV2, EmbeddingModelV2 } from '@ai-sdk/provider';
 import { loadApiKey } from '@ai-sdk/provider-utils';
 import { createSambaNova } from './sambanova-provider';
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
@@ -20,23 +20,12 @@ vi.mock('@ai-sdk/openai-compatible', () => ({
 
 vi.mock('@ai-sdk/provider-utils', () => ({
   loadApiKey: vi.fn().mockReturnValue('mock-api-key'),
-  withoutTrailingSlash: vi.fn(url => url),
+  withoutTrailingSlash: vi.fn((url) => url),
 }));
 
 describe('SambanovaProvider', () => {
-  let mockLanguageModel: LanguageModelV2;
-  let mockEmbeddingModel: EmbeddingModelV2<string>;
-  let createOpenAICompatibleMock: Mock;
 
   beforeEach(() => {
-    // Mock implementations of models
-    mockLanguageModel = {
-      // Add any required methods for LanguageModelV2
-    } as LanguageModelV2;
-    mockEmbeddingModel = {
-      // Add any required methods for EmbeddingModelV2
-    } as EmbeddingModelV2<string>;
-
     // Reset mocks
     vi.clearAllMocks();
   });
@@ -44,7 +33,7 @@ describe('SambanovaProvider', () => {
   describe('createSambaNova', () => {
     it('should create a SambanovaProvider instance with default options', () => {
       const provider = createSambaNova();
-      const model = provider('model-id');
+      const _model = provider('model-id');
 
       // Use the mocked version
       const constructorCall =
@@ -66,7 +55,7 @@ describe('SambanovaProvider', () => {
         headers: { 'Custom-Header': 'value' },
       };
       const provider = createSambaNova(options);
-      const model = provider('model-id');
+      const _model = provider('model-id');
 
       const constructorCall =
         OpenAICompatibleChatLanguageModelMock.mock.calls[0];
@@ -122,4 +111,3 @@ describe('SambanovaProvider', () => {
     });
   });
 });
-

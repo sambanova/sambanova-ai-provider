@@ -2,7 +2,7 @@ import {
   EmbeddingModelV2,
   LanguageModelV2,
   ProviderV2,
-  NoSuchModelError
+  NoSuchModelError,
 } from '@ai-sdk/provider';
 import {
   OpenAICompatibleChatLanguageModel,
@@ -14,25 +14,9 @@ import {
   loadApiKey,
   withoutTrailingSlash,
 } from '@ai-sdk/provider-utils';
-import { 
-  SambaNovaCompletionModelId 
-} from './sambanova-completion-options';
-import {
-  SambaNovaChatModelId
-} from './sambanova-chat-options';
-import {
-  SambaNovaEmbeddingModelId
-} from './sambanova-embedding-options';
-
-const loggingFetch: typeof fetch = async (url, options) => {
-  console.log('🚀 Request URL:', url);
-  console.log('🚀 Request Headers:', options?.headers);
-  if (options?.body) {
-    console.log('🚀 Request Body:', options.body.toString());
-  }
-  const res = await fetch(url, options);
-  return res;
-};
+import { SambaNovaCompletionModelId } from './sambanova-completion-options';
+import { SambaNovaChatModelId } from './sambanova-chat-options';
+import { SambaNovaEmbeddingModelId } from './sambanova-embedding-options';
 
 export interface SambaNovaProviderSettings {
   /**
@@ -94,8 +78,7 @@ export function createSambaNova(
 ): SambaNovaProvider {
   const baseURL = withoutTrailingSlash(
     options.baseURL ?? 'https://api.sambanova.ai/v1',
-  )
-  fetch: loggingFetch;
+  );
 
   const getHeaders = () => ({
     Authorization: `Bearer ${loadApiKey({
@@ -120,10 +103,11 @@ export function createSambaNova(
     fetch: options.fetch,
   });
 
-  const createChatModel = (
-    modelId: SambaNovaChatModelId
-  ) =>
-    new OpenAICompatibleChatLanguageModel(modelId, getCommonModelConfig('chat'));
+  const createChatModel = (modelId: SambaNovaChatModelId) =>
+    new OpenAICompatibleChatLanguageModel(
+      modelId,
+      getCommonModelConfig('chat'),
+    );
 
   const createCompletionModel = (modelId: SambaNovaCompletionModelId) =>
     new OpenAICompatibleCompletionLanguageModel(
@@ -131,14 +115,14 @@ export function createSambaNova(
       getCommonModelConfig('completion'),
     );
 
-  const createEmbeddingModel = (
-    modelId: SambaNovaEmbeddingModelId
-  ) =>
-    new OpenAICompatibleEmbeddingModel(modelId, getCommonModelConfig('embedding'));
+  const createEmbeddingModel = (modelId: SambaNovaEmbeddingModelId) =>
+    new OpenAICompatibleEmbeddingModel(
+      modelId,
+      getCommonModelConfig('embedding'),
+    );
 
   // Default provider returns a chat model
-  const provider = (modelId: SambaNovaChatModelId) =>
-    createChatModel(modelId);
+  const provider = (modelId: SambaNovaChatModelId) => createChatModel(modelId);
 
   provider.completionModel = createCompletionModel;
   provider.chatModel = createChatModel;

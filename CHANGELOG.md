@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.1.5
+
+### Patch Changes
+
+- lint changes
+
 ## 1.1.4
 
 ### Patch Changes
