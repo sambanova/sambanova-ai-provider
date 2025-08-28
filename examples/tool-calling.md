@@ -10,19 +10,12 @@ import { z } from 'zod';
 
 dotenv.config();
 
-const { toolCalls, toolResults } = await generateText({
-  model: sambanova('Meta-Llama-3.1-405B-Instruct'),
-  messages: [
-    {
-      role: 'system',
-      content: 'You are a helpful AI assistant.',
-    },
-    { role: 'user', content: 'What is the weather in San Francisco?' },
-  ],
+const {toolCalls, toolResults} = await generateText({
+  model: sambanova('Meta-Llama-3.3-70B-Instruct'),
   tools: {
     weather: tool({
       description: 'Get the weather in a location',
-      parameters: z.object({
+      inputSchema: z.object({
         location: z.string().describe('The location to get the weather for'),
       }),
       execute: async ({ location }) => ({
@@ -31,7 +24,13 @@ const { toolCalls, toolResults } = await generateText({
       }),
     }),
   },
-  toolChoice: 'auto',
+  messages: [
+    {
+      role: 'system',
+      content: 'You are a helpful AI assistant.',
+    },
+    { role: 'user', content: 'What is the weather in San Francisco?' },
+  ],
 });
 
 console.log('Tool calls:');

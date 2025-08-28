@@ -1,5 +1,23 @@
 # sambanova-ai-provider
 
+## 1.2.0
+
+### Minor Changes
+
+- Updated aisk version
+
+## 1.1.5
+
+### Patch Changes
+
+- lint changes
+
+## 1.1.4
+
+### Patch Changes
+
+- Updated integration with newer aisdk version
+
 ## 1.1.3
 
 ### Patch Changes
