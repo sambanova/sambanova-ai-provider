@@ -2,7 +2,7 @@
 
 Vercel AI Provider for running LLMs locally using SambaNova's models.
 
-## Table of Contents
+## Table of Contents 
 
 - [Requirements](#requirements)
 - [Installation](#installation)
