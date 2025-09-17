@@ -1,6 +1,7 @@
 // https://docs.sambanova.ai/cloud/docs/get-started/supported-models#production-models
 // Also check https://docs.sambanova.ai/cloud/api-reference/endpoints/model-list for instructions on how to query the model list endpoint.
 export type SambaNovaChatModelId =
+  | 'gpt-oss-120b'
   | 'DeepSeek-V3.1'
   | 'DeepSeek-R1-0528'
   | 'DeepSeek-R1-Distill-Llama-70B'
