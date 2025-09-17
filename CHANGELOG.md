@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.2.1
+
+### Patch Changes
+
+- Model list updates
+
 ## 1.2.0
 
 ### Minor Changes
