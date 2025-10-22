@@ -1,5 +1,11 @@
 # sambanova-ai-provider
 
+## 1.2.2
+
+### Patch Changes
+
+- Adding structured outputs option
+
 ## 1.2.1
 
 ### Patch Changes
