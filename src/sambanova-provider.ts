@@ -94,6 +94,7 @@ export function createSambaNova(
     url: ({ path }: { path: string }) => string;
     headers: () => Record<string, string>;
     fetch?: FetchFunction;
+    supportsStructuredOutputs: boolean;
   }
 
   const getCommonModelConfig = (modelType: string): CommonModelConfig => ({
@@ -101,6 +102,7 @@ export function createSambaNova(
     url: ({ path }) => `${baseURL}${path}`,
     headers: getHeaders,
     fetch: options.fetch,
+    supportsStructuredOutputs: true,
   });
 
   const createChatModel = (modelId: SambaNovaChatModelId) =>
