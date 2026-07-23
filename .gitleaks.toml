@@ -1,0 +1,5 @@
+# Gitleaks config for sambanova-ai-provider. Extends the built-in default ruleset.
+title = "sambanova-ai-provider gitleaks config"
+
+[extend]
+useDefault = true
